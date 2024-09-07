@@ -1,6 +1,11 @@
-POST  http://localhost:7000/v1/build
+@baseUrl=http://localhost:4125/v1/
+@token=a3@Vg5H3K$Z#N4R8JB@%Q6#k$Ttz
+
+
+
+POST  {{baseUrl}}build
 Content-Type: application/json
-Authorization: Bearer <token>
+Authorization: Bearer {{token}}
 
 {
   "path": "rest/api-endpoints.rest"

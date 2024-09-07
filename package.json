@@ -4,10 +4,12 @@
   "description": "Quickly Spinup a REST local build pipeline server setup",
   "main": "src/app.js",
   "scripts": {
-    "build": "tsc -w",
-    "start": "ts-node src/app.ts",
+    "build": "tsc -p .",
     "dev": "nodemon build/app.js",
+    "lint": "eslint . --ext .ts",
     "prod": "node build/app.js",
+    "start": "ts-node src/app.ts",
+    "pass:up": "node build/scripts/update-secret.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "meghoshpritam",
@@ -22,8 +24,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.10.0",
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^22.5.4",
-    "@types/pino": "^7.0.5",
     "eslint": "^9.10.0",
     "eslint-config-prettier": "^9.1.0",
     "globals": "^15.9.0",
