@@ -1,0 +1,35 @@
+{
+  "name": "quick-build-pipeline-setup",
+  "version": "1.0.0",
+  "description": "Quickly Spinup a REST local build pipeline server setup",
+  "main": "src/app.js",
+  "scripts": {
+    "build": "tsc -w",
+    "start": "ts-node src/app.ts",
+    "dev": "nodemon build/app.js",
+    "prod": "node build/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "meghoshpritam",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "fastify": "^4.28.1",
+    "fastify-plugin": "^4.5.1",
+    "nodemon": "^3.1.4",
+    "pino": "^9.4.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.10.0",
+    "@types/node": "^22.5.4",
+    "@types/pino": "^7.0.5",
+    "eslint": "^9.10.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.4.0"
+  }
+}
