@@ -10,7 +10,7 @@ const getPassword = () => {
     process.exit(1);
   }
 
-  const password = fs.readFileSync(PASSWORD_FILE, 'utf-8').trim();
+  const password = fs.readFileSync(PASSWORD_FILE, 'utf-8').replace(/\n/gm, '').trim();
 
   if (!password) {
     console.error('Password is empty');
@@ -37,6 +37,11 @@ const updateSecret = () => {
 
   const salt = bcrypt.genSaltSync(10);
   const hashedPassword = bcrypt.hashSync(password, salt);
+
+  if (!bcrypt.compareSync(password, hashedPassword)) {
+    console.error('Password hashing failed');
+    process.exit(1);
+  }
 
   lines[secretLineIndex] = `SECRET="${hashedPassword}"`;
 
