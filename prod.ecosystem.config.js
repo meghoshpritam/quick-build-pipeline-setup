@@ -3,16 +3,10 @@ module.exports = {
     {
       name: 'quick-build-pipeline-setup',
       script: './build/app.js',
-      instances: 'max',
-      exec_mode: 'cluster',
       watch: true,
       env: {
-        NODE_ENV: 'production',
-        PORT: 4125,
-      },
-      env_production: {
-        NODE_ENV: 'production',
-        PORT: 4125,
+        PM2_SERVE_PATH: '.',
+        PM2_SERVE_PORT: 4125,
       },
     },
   ],
