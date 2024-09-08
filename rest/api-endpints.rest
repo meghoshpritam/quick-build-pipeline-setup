@@ -8,5 +8,5 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "path": "rest/api-endpoints.rest"
+  "project": "project-ab"
 }

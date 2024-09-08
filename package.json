@@ -19,7 +19,8 @@
     "fastify": "^4.28.1",
     "fastify-plugin": "^4.5.1",
     "nodemon": "^3.1.4",
-    "pino": "^9.4.0"
+    "pino": "^9.4.0",
+    "yaml": "^2.5.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.10.0",
