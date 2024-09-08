@@ -2,14 +2,28 @@ import fs from 'fs';
 import bcrypt from 'bcrypt';
 
 const ENV_FILE = '.env';
+const PASSWORD_FILE = 'password.txt';
 
-const updateSecret = () => {
-  const password = process.argv[2];
-
-  if (!password) {
-    console.error('Please provide a password');
+const getPassword = () => {
+  if (!fs.existsSync(PASSWORD_FILE)) {
+    console.error(`${PASSWORD_FILE} is missing.`);
     process.exit(1);
   }
+
+  const password = fs.readFileSync(PASSWORD_FILE, 'utf-8').trim();
+
+  if (!password) {
+    console.error('Password is empty');
+    process.exit(1);
+  }
+
+  fs.writeFileSync(PASSWORD_FILE, '');
+
+  return password;
+};
+
+const updateSecret = () => {
+  const password = getPassword();
 
   const envFileContent = fs.readFileSync(ENV_FILE, 'utf8');
   const lines: string[] = envFileContent.split('\n') || [];
@@ -21,7 +35,8 @@ const updateSecret = () => {
     process.exit(1);
   }
 
-  const hashedPassword = bcrypt.hashSync(password, 15);
+  const salt = bcrypt.genSaltSync(10);
+  const hashedPassword = bcrypt.hashSync(password, salt);
 
   lines[secretLineIndex] = `SECRET="${hashedPassword}"`;
 
