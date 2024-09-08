@@ -1,5 +1,0 @@
-projects:
-  - id: project-ab
-    path: ''
-    buildScript: ''
-    gitPull: true

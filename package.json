@@ -1,10 +1,11 @@
 {
   "name": "quick-build-pipeline-setup",
   "version": "1.0.0",
-  "description": "Quickly Spinup a REST local build pipeline server setup",
+  "description": "Quickly Spin up a REST local build pipeline server setup",
   "main": "src/app.js",
   "scripts": {
     "build": "tsc -p .",
+    "build:password": "npm run build && npm run pass:up",
     "dev": "nodemon",
     "lint": "eslint . --ext .ts",
     "prod": "node build/app.js",

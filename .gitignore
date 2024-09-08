@@ -119,3 +119,6 @@ dist
 
 # Build
 build
+
+# local configuration
+projects.yml

@@ -31,9 +31,9 @@ const checkAuth = (authHeader: string) => {
 };
 
 const getProjectConfigurations = () => {
-  const configurationText = fs.readFileSync('config.yml', 'utf-8');
+  const configurationText = fs.readFileSync('projects.yml', 'utf-8');
 
-  const configurations = yaml.parse(configurationText).projects;
+  const configurations = yaml.parse(configurationText);
 
   return configurations.reduce(
     (
