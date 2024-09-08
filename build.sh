@@ -1,3 +1,5 @@
+git pull origin main
+
 nvm use $(cat .nvmrc)
 
 npx pnpm install
