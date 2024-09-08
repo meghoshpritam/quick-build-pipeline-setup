@@ -9,6 +9,10 @@ interface ConfigTypes {
   path: string;
 }
 
+const replayWithErrorMessage = (reply: FastifyReply, message: string, code: number) => {
+  reply.code(code).send({ message });
+};
+
 const checkAuth = (authHeader: string) => {
   if (!authHeader) {
     return false;
@@ -48,23 +52,20 @@ export const buildTrigger = async (request: FastifyRequest<{ Body: { project: st
   const authHeader = request.headers.authorization ?? '';
 
   if (!checkAuth(authHeader)) {
-    reply.code(401).send({ message: 'Unauthorized' });
-    return;
+    return replayWithErrorMessage(reply, 'Unauthorized', 401);
   }
 
   const projectId = request.body.project;
 
   if (!projectId) {
-    reply.code(400).send({ message: 'Project ID is required' });
-    return;
+    return replayWithErrorMessage(reply, 'Project ID is required', 400);
   }
 
   const configurations = getProjectConfigurations();
   const projectConfig = configurations[projectId];
 
   if (!projectConfig) {
-    reply.code(404).send({ message: 'Project not found' });
-    return;
+    return replayWithErrorMessage(reply, 'Project not found', 404);
   }
 
   return { message: 'der!' };
