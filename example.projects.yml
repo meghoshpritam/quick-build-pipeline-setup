@@ -2,3 +2,4 @@
   path: ''
   buildScript: ''
   gitPull: true
+  gitBranch: main

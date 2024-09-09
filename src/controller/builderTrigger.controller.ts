@@ -77,7 +77,9 @@ export const buildTrigger = async (request: FastifyRequest<{ Body: { project: st
   });
 
   if (projectConfig.gitPull) {
-    const pullCommand = exec(`cd ${projectConfig.path} && git pull`);
+    const pullCommand = exec(
+      `cd ${projectConfig.path} && git reset --hard && git clean -fd && git checkout ${projectConfig.gitBranch} && git pull --rebase`,
+    );
 
     pullCommand?.stdout?.on('data', (data) => {
       reply.raw.write(data);

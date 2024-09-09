@@ -81,3 +81,4 @@ Body:
 - `path`: The path to the project directory. Always provide the absolute path to the project directory.
 - `buildScript`: The build script to run for the project. This script will be executed in the project directory. For example, if you have `build.sh` script in the project directory, you can provide the value as `bash ./build.sh`.
 - `gitPull`: If set to `true`, the project will be updated from the git repository before running the build script.
+- `gitBranch`: The build git branch name.
