@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import yaml from 'yaml';
 import fs from 'fs';
 import { exec } from 'child_process';
+import { cleanAndPullGit } from '../helpers/git.helper';
 
 interface ConfigTypes {
   id: string;
@@ -77,25 +78,13 @@ export const buildTrigger = async (request: FastifyRequest<{ Body: { project: st
   });
 
   if (projectConfig.gitPull) {
-    const pullCommand = exec(
-      `cd ${projectConfig.path} && git reset --hard && git clean -fd && git checkout ${projectConfig.gitBranch} && git pull --rebase`,
-    );
+    try {
+      const pullRes = cleanAndPullGit(projectConfig.path, projectConfig.gitBranch);
 
-    pullCommand?.stdout?.on('data', (data) => {
-      reply.raw.write(data);
-    });
-
-    let hasError = false;
-    pullCommand?.stderr?.on('data', (data) => {
-      hasError = true;
-      reply.raw.write(`Error: ${data}`);
-    });
-
-    pullCommand.on('close', (code) => {
-      if (hasError) {
-        return reply.raw.end(`\nProcess terminated with status code: ${code}`);
-      }
-    });
+      reply.raw.write(pullRes);
+    } catch (error) {
+      return reply.raw.end(`Error: ${error}`);
+    }
   }
 
   const buildCommand = exec(`cd ${projectConfig.path} && ${projectConfig.buildScript}`);
