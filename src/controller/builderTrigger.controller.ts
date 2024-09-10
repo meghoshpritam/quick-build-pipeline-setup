@@ -79,7 +79,7 @@ export const buildTrigger = async (request: FastifyRequest<{ Body: { project: st
 
   if (projectConfig.gitPull) {
     try {
-      const pullRes = cleanAndPullGit(projectConfig.path, projectConfig.gitBranch);
+      const pullRes = await cleanAndPullGit(projectConfig.path, projectConfig.gitBranch);
 
       reply.raw.write(pullRes);
     } catch (error) {
