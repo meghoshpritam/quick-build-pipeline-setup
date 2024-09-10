@@ -2,28 +2,36 @@ import { ResetMode, simpleGit } from 'simple-git';
 
 export const cleanAndPullGit = async (repository: string, branch: string) => {
   let result = '';
+  let res;
   const git = simpleGit(repository);
 
   result += 'Cleaning untracked files...\n';
-  result += await git.clean('df');
+  res = await git.clean('df');
+  result += JSON.stringify(res, null, 2);
 
   result += '\nResetting repository...\n';
-  result += await git.reset(ResetMode.HARD);
+  res = await git.reset(ResetMode.HARD);
+  result += JSON.stringify(res, null, 2);
 
   result += '\nStashing changes...\n';
-  result += await git.stash();
+  res = await git.stash();
+  result += JSON.stringify(res, null, 2);
 
   result += '\nCleaning untracked files again...\n';
-  result += await git.clean('df');
+  res = await git.clean('df');
+  result += JSON.stringify(res, null, 2);
 
   result += `\nChecking out ${branch} branch...\n`;
-  result += await git.checkout(branch);
+  res = await git.checkout(branch);
+  result += JSON.stringify(res, null, 2);
 
   result += '\nChecking out all files...\n';
-  result += await git.checkout('.');
+  res = await git.checkout('.');
+  result += JSON.stringify(res, null, 2);
 
   result += '\nPulling latest changes...\n';
-  result += await git.pull('origin', branch, { '--rebase': 'true' });
+  res = await git.pull('origin', branch, { '--rebase': 'true' });
+  result += JSON.stringify(res, null, 2);
 
   return result;
 };
