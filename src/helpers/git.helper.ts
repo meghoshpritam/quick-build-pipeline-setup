@@ -2,7 +2,7 @@ import { ResetMode, simpleGit } from 'simple-git';
 
 export const cleanAndPullGit = async (repository: string, branch: string) => {
   let result = '';
-  const git = simpleGit(repository).branch({ name: branch });
+  const git = simpleGit(repository);
 
   result += 'Cleaning untracked files...\n';
   result += await git.clean('df');
