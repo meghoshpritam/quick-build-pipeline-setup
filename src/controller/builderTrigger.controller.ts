@@ -80,10 +80,10 @@ export const buildTrigger = async (request: FastifyRequest<{ Body: { project: st
   if (projectConfig.gitPull) {
     try {
       const pullRes = await cleanAndPullGit(projectConfig.path, projectConfig.gitBranch);
-
       reply.raw.write(pullRes);
     } catch (error) {
-      return reply.raw.end(`Error: ${error}`);
+      reply.raw.write(`Error: ${error}`);
+      return reply.raw.end();
     }
   }
 
@@ -98,6 +98,6 @@ export const buildTrigger = async (request: FastifyRequest<{ Body: { project: st
   });
 
   buildCommand.on('close', (code) => {
-    reply.raw.end(`\nProcess end with status code: ${code}`);
+    reply.raw.end(`\nProcess ended with status code: ${code}`);
   });
 };
